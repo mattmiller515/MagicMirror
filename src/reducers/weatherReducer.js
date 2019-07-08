@@ -1,19 +1,25 @@
 const defaultState = {
   currentWeather: 'Sunny',
-  currentTemperature: 'N/A',
+  currentTemperature: '72',
   isDay: true
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
     case 'RETRIEVE_WEATHER_FULFILLED':
+      let data = action.payload['data'][0];
       return {
         ...state,
-        currentWeather: action.payload['WeatherText'].replace(/\b\w/g, l =>
+        currentWeather: data['WeatherText'].replace(/\b\w/g, l =>
           l.toUpperCase()
         ),
-        currentTemperature: action.payload['Temperature']['Imperial']['Value'],
-        isDay: action.payload['IsDayTime']
+        currentTemperature: data['Temperature']['Imperial']['Value'],
+        isDay: data['IsDayTime']
+      };
+    case 'UPDATE_WEATHER_ICON':
+      return {
+        ...state,
+        weatherIcon: action.payload
       };
     default:
       return state;

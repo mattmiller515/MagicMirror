@@ -4,13 +4,19 @@ import LiveClock from 'react-live-clock';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
-const styles = {};
+const styles = {
+  clock: {
+    fontSize: 100
+  }
+};
 
 export class Clock extends Component {
   render() {
+    const { classes } = this.props;
+
     return (
-      <Typography variant='h1'>
-        <LiveClock format={'HH:mm:ss'} ticking={true} />
+      <Typography variant='h3' className={classes.clock}>
+        <LiveClock format={'h:mm:ss A'} ticking={true} />
       </Typography>
     );
   }

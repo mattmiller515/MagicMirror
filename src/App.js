@@ -15,8 +15,12 @@ function App() {
           <Grid item>
             <Clock />
           </Grid>
-          <Grid>
-            <Weather />
+          <Grid item xs={true}>
+            <Grid container justify='flex-end'>
+              <Grid item>
+                <Weather />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Theme>

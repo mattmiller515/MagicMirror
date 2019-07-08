@@ -3,50 +3,41 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/styles';
 
-import { retrieveWeather } from '../actions/weatherActions';
+import { Grid, Typography } from '@material-ui/core';
 
-const styles = {};
+import { retrieveWeather, updateWeatherIcon } from '../actions/weatherActions';
+
+const styles = {
+  temperature: {
+    fontSize: 200
+  },
+  weatherText: {}
+};
 
 export class Weather extends Component {
   componentDidMount() {
-    this.props.retrieveWeather();
+    // this.props.retrieveWeather(); //TODO - uncomment this
+    this.props.updateWeatherIcon('Sunny');
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <React.Fragment>
-        <h1>{this.props.weather.currentWeather}</h1>
-        <h1>{this.props.weather.currentTemperature}</h1>
-        <h1>{this.props.weather.isDay.toString()}</h1>
-      </React.Fragment>
+      <Grid container>
+        <Grid item>
+          <Typography variant='h3' className={classes.temperature}>
+            {this.props.weather.currentTemperature}&#176;
+          </Typography>
+        </Grid>
+        <Grid item>
+          {this.props.weather.weatherIcon}
+          <Typography variant='h3' className={classes.weatherText}>
+            {this.props.weather.currentWeather}
+          </Typography>
+        </Grid>
+      </Grid>
     );
   }
-
-  //   retrieveWeather = () => {
-  //     var api_url =
-  //       'http://dataservice.accuweather.com/currentconditions/v1/' +
-  //       config.WEATHER_LOCATION_KEY +
-  //       '?apikey=' +
-  //       config.WEATHER_KEY;
-
-  //     let currentComponent = this;
-
-  //     axios.get(api_url).then(function(response) {
-  //       var data = response['data'][0];
-
-  //       var weatherText = data['WeatherText'].replace(/\b\w/g, l =>
-  //         l.toUpperCase()
-  //       );
-  //       var temp = data['Temperature']['Imperial']['Value'];
-  //       var isDay = data['IsDayTime'];
-
-  //       currentComponent.setState({ weatherText: weatherText });
-  //       currentComponent.setState({ temperature: temp });
-  //       currentComponent.setState({ isDay: isDay });
-
-  //       currentComponent.determineWeatherIcon(weatherText, isDay);
-  //     });
-  //   };
 }
 
 const mapStateToProps = state => ({
@@ -54,7 +45,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  retrieveWeather: () => dispatch(retrieveWeather())
+  retrieveWeather: () => dispatch(retrieveWeather()),
+  updateWeatherIcon: weatherString => dispatch(updateWeatherIcon(weatherString)) //TODO - remove this
 });
 
 export default connect(
