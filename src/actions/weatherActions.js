@@ -1,107 +1,24 @@
-import React from 'react';
 import axios from 'axios';
-
-import { WiDaySunny, WiNightClear, WiDayCloudy, WiNightAltCloudy, WiDayHaze, WiNightFog, WiDayShowers, WiNightAltShowers, WiDayThunderstorm, WiNightAltThunderstorm, WiDaySleet, WiNightAltSleet, WiDaySnow, WiNightAltSnow, WiCloud, WiCloudy, WiFog, WiShowers, WiThunderstorm, WiRain, WiRainMix, WiSleet, WiSnow, WiHot, WiSnowflakeCold, WiStrongWind, WiNA } from 'weather-icons-react';
 
 import { config } from '../config/config';
 
-const clearList = ['sunny', 'clear', 'mostly clear', 'mostly sunny'];
-const partlyCloudyList = [
-  'partly cloudy',
-  'partly sunny',
-  'mostly cloudy',
-  'intermittent clouds'
-];
-const hazeList = ['hazy sunshine', ' hazy moonlight'];
-const cloudList = ['cloudy'];
-const cloudyList = ['overcast'];
-const fogList = ['fog'];
-const showersList = ['showers'];
-const partlyShowersList = [
-  'mostly cloudy w/ showers',
-  'partly cloudy w/ showers'
-];
-const thunderstormsList = ['T-storms'];
-const partlyThunderstormsList = [
-  'mostly cloudy w/ t-storms',
-  'partly cloudy w/ t-storms'
-];
-const rainList = ['rain'];
-const rainMixList = ['sleet', 'freezing rain'];
-const sleetList = ['flurries'];
-const partlySleet = ['mostly cloudy w/ flurries', 'partly cloudy w/ flurries'];
-const snowList = ['snow'];
-const partlySnowList = ['mostly cloudy w/ snow'];
-const hotList = ['hot'];
-const coldList = ['cold'];
-const windList = ['windy'];
-
 export const retrieveWeather = () => (dispatch, getState) => {
-  let api_url =
-    'http://dataservice.accuweather.com/currentconditions/v1/' +
-    config.WEATHER_LOCATION_KEY +
-    '?apikey=' +
-    config.WEATHER_KEY;
+  let WEATHER_API_URL = 'http://dataservice.accuweather.com/currentconditions/v1/' + config.WEATHER_LOCATION_KEY + '?apikey=' + config.WEATHER_KEY;
+  let HOURLY_API_URL = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/' + config.WEATHER_LOCATION_KEY + '?apikey=' + config.WEATHER_KEY;
+  let DAILY_API_URL = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/' + config.WEATHER_LOCATION_KEY + '?apikey=' + config.WEATHER_KEY;
 
   dispatch({
     type: 'RETRIEVE_WEATHER',
-    payload: axios.get(api_url)
-  }).then(() => {
-    dispatch(updateWeatherIcon(getState().weather.currentWeather));
+    payload: axios.get(WEATHER_API_URL)
   });
-};
-
-export const updateWeatherIcon = weatherString => (dispatch, getState) => {
-  weatherString = weatherString.toLowerCase();
-  let isDay = getState().weather.isDay;
-  let iconSize = 150;
-  let weatherIcon;
-
-  console.log(weatherString);
-  if (cloudList.includes(weatherString)) {
-    weatherIcon = <WiCloud color='#FFF' size={iconSize} />
-  } else if (cloudyList.includes(weatherString)) {
-    weatherIcon = <WiCloudy color='#FFF' size={iconSize} />
-  } else if (fogList.includes(weatherString)) {
-    weatherIcon = <WiFog color='#FFF' size={iconSize} />
-  } else if (showersList.includes(weatherString)) {
-    weatherIcon = <WiShowers color='#FFF' size={iconSize} />
-  } else if (thunderstormsList.includes(weatherString)) {
-    weatherIcon = <WiThunderstorm color='#FFF' size={iconSize} />
-  } else if (rainList.includes(weatherString)) {
-    weatherIcon = <WiRain color='#FFF' size={iconSize} />
-  } else if (rainMixList.includes(weatherString)) {
-    weatherIcon = <WiRainMix color='#FFF' size={iconSize} />
-  } else if (sleetList.includes(weatherString)) {
-    weatherIcon = <WiSleet color='#FFF' size={iconSize} />
-  } else if (snowList.includes(weatherString)) {
-    weatherIcon = <WiSnow color='#FFF' size={iconSize} />
-  } else if (hotList.includes(weatherString)) {
-    weatherIcon = <WiHot color='#FFF' size={iconSize} />
-  } else if (coldList.includes(weatherString)) {
-    weatherIcon = <WiSnowflakeCold color='#FFF' size={iconSize} />
-  } else if (windList.includes(weatherString)) {
-    weatherIcon = <WiStrongWind color='#FFF' size={iconSize} />
-  } else if (clearList.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDaySunny color='#FFF' size={iconSize} /> : <WiNightClear color='#FFF' size={iconSize} />;
-  } else if (partlyCloudyList.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDayCloudy color='#FFF' size={iconSize} /> : <WiNightAltCloudy color='#FFF' size={iconSize} />;
-  } else if (hazeList.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDayHaze color='#FFF' size={iconSize} /> : <WiNightFog color='#FFF' size={iconSize} />;
-  } else if (partlyShowersList.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDayShowers color='#FFF' size={iconSize} /> : <WiNightAltShowers color='#FFF' size={iconSize} />;
-  } else if (partlyThunderstormsList.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDayThunderstorm color='#FFF' size={iconSize} /> : <WiNightAltThunderstorm color='#FFF' size={iconSize} />;
-  } else if (partlySleet.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDaySleet color='#FFF' size={iconSize} /> : <WiNightAltSleet color='#FFF' size={iconSize} />;
-  } else if (partlySnowList.includes(weatherString)) {
-    weatherIcon = isDay ? <WiDaySnow color='#FFF' size={iconSize} /> : <WiNightAltSnow color='#FFF' size={iconSize} />;
-  } else {
-    weatherIcon = <WiNA color='#FFF' size={iconSize} />
-  }
 
   dispatch({
-    type: 'UPDATE_WEATHER_ICON',
-    payload: weatherIcon
-  });
+    type: 'RETRIEVE_HOURLY_FORECAST',
+    payload: axios.get(HOURLY_API_URL)
+  })
+
+  dispatch({
+    type: 'RETRIEVE_DAILY_FORECAST',
+    payload: axios.get(DAILY_API_URL)
+  })
 };

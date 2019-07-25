@@ -3,9 +3,11 @@ import './App.css';
 
 import { Grid } from '@material-ui/core';
 
-import Clock from './components/Clock';
 import Theme from './common/Theme';
+
+import Clock from './components/Clock';
 import Weather from './components/Weather';
+import Quote from './components/Quote';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             </Grid>
           </Grid>
         </Grid>
+        <Quote />
       </Theme>
     </div>
   );
