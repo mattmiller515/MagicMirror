@@ -8,14 +8,12 @@ import { retrieveQuote } from '../actions/quoteActions';
 
 const styles = {
     container: {
-        height: '100%',
-        padding: 50
+        position: 'absolute',
+        bottom: 0,
+        padding: 100
     },
     marginTop: {
         marginTop: 20
-    },
-    test: {
-        // height: '100%'
     }
 }
 
@@ -30,7 +28,7 @@ export class Quote extends Component {
 
         return (
             <Grid container alignItems='flex-end' className={classes.container}>
-                <Grid item className={classes.test}>
+                <Grid item>
                     <Typography variant='h4' align='left'>
                         <i>"{quote.text}"</i>
                     </Typography>

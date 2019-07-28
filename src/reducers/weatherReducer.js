@@ -2,74 +2,77 @@ import React from 'react';
 import { WiDaySunny, WiNightClear, WiDayCloudy, WiNightAltCloudy, WiDayHaze, WiNightFog, WiDayShowers, WiNightAltShowers, WiDayThunderstorm, WiNightAltThunderstorm, WiDaySleet, WiNightAltSleet, WiDaySnow, WiNightAltSnow, WiCloud, WiCloudy, WiFog, WiShowers, WiThunderstorm, WiRain, WiRainMix, WiSleet, WiSnow, WiHot, WiSnowflakeCold, WiStrongWind, WiNA } from 'weather-icons-react';
 import moment from 'moment';
 
+const largeIconSize = 150;
+const smallIconSize = 50;
+
 const defaultState = {
   current: {
     weather: 'Partly Cloudy w/ Flurries',
     temperature: '72',
-    isDay: true
+    weatherIcon: <WiDaySunny color='#FFF' size={largeIconSize} />
   },
   hourly: [
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: '12 PM'
+      dateTime: '12 PM',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: '12 PM'
+      dateTime: '12 PM',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: '12 PM'
+      dateTime: '12 PM',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: '12 PM'
+      dateTime: '12 PM',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: '12 PM'
+      dateTime: '12 PM',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     }
   ],
   daily: [
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: 'Mon'
+      dateTime: 'Mon',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: 'Tue'
+      dateTime: 'Tue',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: 'Wed'
+      dateTime: 'Wed',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: 'Thu'
+      dateTime: 'Thu',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     },
     {
-      weather: 'Sunny',
+      weather: 'Partly Cloudy w/ Flurries',
       temperature: '72',
-      isDay: true,
-      dateTime: 'Fri'
+      dateTime: 'Fri',
+      weatherIcon: <WiDaySunny color='#FFF' size={smallIconSize} />
     }
   ]
 };
@@ -77,7 +80,6 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case 'RETRIEVE_WEATHER_FULFILLED':
-      console.log(action.payload)
       let data = action.payload.data[0];
       let weatherString = data.WeatherText.replace(/\b\w/g, l => l.toUpperCase());
       return {
@@ -86,12 +88,11 @@ export default (state = defaultState, action) => {
           weather: weatherString,
           temperature: data.Temperature.Imperial.Value,
           isDay: data.IsDayTime,
-          weatherIcon: determineWeatherIcon(weatherString, data.IsDayTime)
+          weatherIcon: determineWeatherIcon(weatherString, data.IsDayTime, largeIconSize)
         }
       };
 
     case 'RETRIEVE_HOURLY_FORECAST_FULFILLED':
-      console.log(action.payload);
       let hourlyList = [];
       for (let hourlyWeather of action.payload.data) {
         let weatherText = hourlyWeather.IconPhrase.replace(/\b\w/g, l => l.toUpperCase());
@@ -101,9 +102,8 @@ export default (state = defaultState, action) => {
         hourlyList.push({
           weather: weatherText,
           temperature: temperature,
-          isDay: isDay,
           dateTime: time,
-          weatherIcon: determineWeatherIcon(weatherText, isDay)
+          weatherIcon: determineWeatherIcon(weatherText, isDay, smallIconSize)
         })
       }
       return {
@@ -112,7 +112,6 @@ export default (state = defaultState, action) => {
       }
 
     case 'RETRIEVE_DAILY_FORECAST_FULFILLED':
-      console.log(action.payload);
       let dailyList = [];
       for (let dailyWeather of action.payload.data.DailyForecasts) {
         let weatherText = dailyWeather.Day.IconPhrase.replace(/\b\w/g, l => l.toUpperCase());
@@ -122,9 +121,8 @@ export default (state = defaultState, action) => {
         dailyList.push({
           weather: weatherText,
           temperature: temperature,
-          isDay: isDay,
           dateTime: time,
-          weatherIcon: determineWeatherIcon(weatherText, isDay)
+          weatherIcon: determineWeatherIcon(weatherText, isDay, smallIconSize)
         })
       }
       return {
@@ -148,8 +146,8 @@ const cloudyList = ['overcast'];
 const fogList = ['fog'];
 const showersList = ['showers'];
 const partlyShowersList = ['mostly cloudy w/ showers', 'partly cloudy w/ showers'];
-const thunderstormsList = ['T-storms'];
-const partlyThunderstormsList = ['mostly cloudy w/ t-storms', 'partly cloudy w/ t-storms'];
+const thunderstormsList = ['T-storms', 'thunderstorms'];
+const partlyThunderstormsList = ['mostly cloudy w/ thunderstorms', 'partly cloudy w/ thunderstorms'];
 const rainList = ['rain'];
 const rainMixList = ['sleet', 'freezing rain'];
 const sleetList = ['flurries'];
@@ -161,10 +159,9 @@ const coldList = ['cold'];
 const windList = ['windy'];
 
 
-const determineWeatherIcon = (weatherString, isDay) => {
+const determineWeatherIcon = (weatherString, isDay, iconSize) => {
 
   weatherString = weatherString.toLowerCase();
-  let iconSize = 150;
   let weatherIcon;
 
   if (cloudList.includes(weatherString)) {
