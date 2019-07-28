@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { Typography, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
-import { retrieveQuote } from '../actions/quoteActions';
-
 const styles = {
     container: {
         position: 'absolute',
@@ -18,10 +16,6 @@ const styles = {
 }
 
 export class Quote extends Component {
-
-    componentDidMount() {
-        this.props.retrieveQuote();
-    }
 
     render() {
         const { classes, quote } = this.props;
@@ -43,8 +37,4 @@ const mapStateToProps = state => ({
     quote: state.quote
 });
 
-const mapDispatchToProps = dispatch => ({
-    retrieveQuote: () => dispatch(retrieveQuote()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Quote));
+export default connect(mapStateToProps)(withStyles(styles)(Quote));
