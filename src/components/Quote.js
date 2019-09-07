@@ -8,10 +8,11 @@ const styles = {
     container: {
         position: 'absolute',
         bottom: 0,
-        padding: 100
+        margin: 50
     },
-    marginTop: {
-        marginTop: 20
+    author: {
+        marginTop: 20,
+        marginLeft: 50
     }
 }
 
@@ -25,8 +26,9 @@ export class Quote extends Component {
                 <Grid item>
                     <Typography variant='h4' align='left'>
                         <i>"{quote.text}"</i>
+
                     </Typography>
-                    <Typography variant='h5' className={classes.marginTop}>- {quote.author}</Typography>
+                    <Typography variant='h5' align='left' className={classes.author}>- {quote.author}</Typography>
                 </Grid>
             </Grid>
         );

@@ -12,14 +12,15 @@ import { retrieveQuote } from '../actions/quoteActions';
 
 const styles = {
   clock: {
-    fontSize: 200
+    fontSize: 100
   },
   seconds: {
-    fontsize: 50,
-    marginBottom: 20
+    fontSize: 50,
+    marginBottom: 10,
+    marginLeft: 10
   },
   date: {
-    fontSize: 50
+    fontSize: 25
   }
 };
 
@@ -31,14 +32,14 @@ export class Clock extends Component {
 
     let nextDate = new Date();
     if (nextDate.getMinutes() === 0) {
-        this.updateData()
+      this.updateData()
     } else {
-        nextDate.setHours(nextDate.getHours() + 1);
-        nextDate.setMinutes(0);
-        nextDate.setSeconds(0);
+      nextDate.setHours(nextDate.getHours() + 1);
+      nextDate.setMinutes(0);
+      nextDate.setSeconds(0);
 
-        var difference = nextDate - new Date();
-        setTimeout(this.updateData, difference);
+      var difference = nextDate - new Date();
+      setTimeout(this.updateData, difference);
     }
   }
 
@@ -50,7 +51,7 @@ export class Clock extends Component {
 
   retrieveData = () => {
     console.log('pulling new data: ' + new Date());
-    this.props.retrieveWeather();
+    // this.props.retrieveWeather();
     this.props.retrieveQuote();
   }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { WiDaySunny, WiNightClear, WiDayCloudy, WiNightAltCloudy, WiDayHaze, WiNightFog, WiDayShowers, WiNightAltShowers, WiDayThunderstorm, WiNightAltThunderstorm, WiDaySleet, WiNightAltSleet, WiDaySnow, WiNightAltSnow, WiCloud, WiCloudy, WiFog, WiShowers, WiThunderstorm, WiRain, WiRainMix, WiSleet, WiSnow, WiHot, WiSnowflakeCold, WiStrongWind, WiNA } from 'weather-icons-react';
 import moment from 'moment';
 
-const largeIconSize = 150;
+const largeIconSize = 100;
 const smallIconSize = 50;
 
 const defaultState = {

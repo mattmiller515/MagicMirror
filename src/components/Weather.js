@@ -6,16 +6,20 @@ import { Grid, Typography } from '@material-ui/core';
 
 const styles = {
   temperature: {
-    fontSize: 200
+    fontSize: 150
   },
   weatherText: {
-    maxWidth: 250
+    maxWidth: 100,
+    fontSize: 20
   },
   marginTop: {
-    marginTop:20
+    marginTop: 20
   },
   forecastText: {
     maxWidth: 100
+  },
+  dailyForcast: {
+    marginTop: 16
   }
 };
 
@@ -25,7 +29,7 @@ const Forecast = (props) => {
 
   return (
     <React.Fragment>
-      <div style={{opacity: opacity}}>
+      <div style={{ opacity: opacity }}>
         <Typography variant='subtitle1'>{dateTime}</Typography>
         <Grid container justify='center'>
           <Grid item>
@@ -49,7 +53,7 @@ export class Weather extends Component {
     const { classes, weather } = this.props;
     return (
       <React.Fragment>
-        <Grid container>
+        <Grid container justify='flex-start' alignItems='center'>
           <Grid item>
             <Typography variant='h3' className={classes.temperature}>
               {weather.current.temperature}&#176;
@@ -62,7 +66,7 @@ export class Weather extends Component {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={5} justify='flex-end' className={classes.marginTop}>
+        <Grid container spacing={2} justify='flex-end' className={classes.marginTop}>
           <Grid item>
             <WrappedForecast weather={weather.hourly[0]} />
           </Grid>
@@ -83,20 +87,20 @@ export class Weather extends Component {
         <Grid container>
           <Grid item xs={10} />
           <Grid item xs={2}>
-            <div className={classes.marginTop}>
-              <WrappedForecast weather={weather.daily[0]} opacity={1}  />
+            <div className={classes.dailyForcast}>
+              <WrappedForecast weather={weather.daily[0]} opacity={1} />
             </div>
-            <div className={classes.marginTop}>
-              <WrappedForecast weather={weather.daily[1]} opacity={0.9} />
+            <div className={classes.dailyForcast}>
+              <WrappedForecast weather={weather.daily[1]} opacity={0.85} />
             </div>
-            <div className={classes.marginTop}>
-              <WrappedForecast weather={weather.daily[2]} opacity={0.8} />
+            <div className={classes.dailyForcast}>
+              <WrappedForecast weather={weather.daily[2]} opacity={0.70} />
             </div>
-            <div className={classes.marginTop}>
-              <WrappedForecast weather={weather.daily[3]} opacity={0.7} />
+            <div className={classes.dailyForcast}>
+              <WrappedForecast weather={weather.daily[3]} opacity={0.55} />
             </div>
-            <div className={classes.marginTop}>
-              <WrappedForecast weather={weather.daily[4]} opacity={0.6} />
+            <div className={classes.dailyForcast}>
+              <WrappedForecast weather={weather.daily[4]} opacity={0.40} />
             </div>
           </Grid>
         </Grid>
