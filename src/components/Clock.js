@@ -52,7 +52,7 @@ export class Clock extends Component {
 
   retrieveData = () => {
     console.log('pulling new data: ' + new Date());
-    // this.props.retrieveWeather();
+    this.props.retrieveWeather();
     this.props.retrieveQuote();
   }
 
