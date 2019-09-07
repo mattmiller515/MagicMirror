@@ -15,11 +15,11 @@ const styles = {
   marginTop: {
     marginTop: 20,
   },
-  paddingRight: {
-    paddingRight: 8
-  },
   forecastText: {
     maxWidth: 75
+  },
+  wideForecastText: {
+    maxWidth: 100
   },
   dailyForcast: {
     marginTop: 16
@@ -30,7 +30,7 @@ const styles = {
 };
 
 const Forecast = (props) => {
-  const { classes, opacity } = props;
+  const { classes, opacity, wide } = props;
   const { weather, temperature, dateTime, weatherIcon } = props.weather;
 
   return (
@@ -45,7 +45,7 @@ const Forecast = (props) => {
             {temperature}&#176;
           </Grid>
         </Grid>
-        <Typography variant='subtitle2' className={classes.forecastText}>{weather}</Typography>
+        <Typography variant='subtitle2' className={wide ? classes.wideForecastText : classes.forecastText}>{weather}</Typography>
       </div>
     </React.Fragment>
   )
@@ -91,23 +91,23 @@ export class Weather extends Component {
             </Grid>
           </Grid>
           <hr />
-          <Grid container className={classes.paddingRight}>
-            <Grid item xs={10} />
-            <Grid item xs={2}>
+          <Grid container>
+            <Grid item xs={9} />
+            <Grid item xs={3}>
               <div className={classes.dailyForcast}>
-                <WrappedForecast weather={weather.daily[0]} opacity={1} />
+                <WrappedForecast weather={weather.daily[0]} wide opacity={1} />
               </div>
               <div className={classes.dailyForcast}>
-                <WrappedForecast weather={weather.daily[1]} opacity={0.85} />
+                <WrappedForecast weather={weather.daily[1]} wide opacity={0.85} />
               </div>
               <div className={classes.dailyForcast}>
-                <WrappedForecast weather={weather.daily[2]} opacity={0.70} />
+                <WrappedForecast weather={weather.daily[2]} wide opacity={0.70} />
               </div>
               <div className={classes.dailyForcast}>
-                <WrappedForecast weather={weather.daily[3]} opacity={0.55} />
+                <WrappedForecast weather={weather.daily[3]} wide opacity={0.55} />
               </div>
               <div className={classes.dailyForcast}>
-                <WrappedForecast weather={weather.daily[4]} opacity={0.40} />
+                <WrappedForecast weather={weather.daily[4]} wide opacity={0.40} />
               </div>
             </Grid>
           </Grid>
