@@ -10,16 +10,22 @@ const styles = {
   },
   weatherText: {
     maxWidth: 100,
-    fontSize: 20
+    fontSize: 17
   },
   marginTop: {
-    marginTop: 20
+    marginTop: 20,
+  },
+  paddingRight: {
+    paddingRight: 8
   },
   forecastText: {
-    maxWidth: 100
+    maxWidth: 75
   },
   dailyForcast: {
     marginTop: 16
+  },
+  container: {
+    overflowX: 'hidden'
   }
 };
 
@@ -53,57 +59,59 @@ export class Weather extends Component {
     const { classes, weather } = this.props;
     return (
       <React.Fragment>
-        <Grid container justify='flex-start' alignItems='center'>
-          <Grid item>
-            <Typography variant='h3' className={classes.temperature}>
-              {weather.current.temperature}&#176;
-            </Typography>
+        <div className={classes.container}>
+          <Grid container justify='flex-start' alignItems='center'>
+            <Grid item>
+              <Typography variant='h3' className={classes.temperature}>
+                {weather.current.temperature}&#176;
+              </Typography>
+            </Grid>
+            <Grid item>
+              {weather.current.weatherIcon}
+              <Typography variant='h5' className={classes.weatherText}>
+                {weather.current.weather}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item>
-            {weather.current.weatherIcon}
-            <Typography variant='h4' className={classes.weatherText}>
-              {weather.current.weather}
-            </Typography>
+          <Grid container spacing={1} justify='flex-end' className={classes.marginTop}>
+            <Grid item>
+              <WrappedForecast weather={weather.hourly[0]} />
+            </Grid>
+            <Grid item>
+              <WrappedForecast weather={weather.hourly[1]} />
+            </Grid>
+            <Grid item>
+              <WrappedForecast weather={weather.hourly[2]} />
+            </Grid>
+            <Grid item>
+              <WrappedForecast weather={weather.hourly[3]} />
+            </Grid>
+            <Grid item>
+              <WrappedForecast weather={weather.hourly[4]} />
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid container spacing={2} justify='flex-end' className={classes.marginTop}>
-          <Grid item>
-            <WrappedForecast weather={weather.hourly[0]} />
+          <hr />
+          <Grid container className={classes.paddingRight}>
+            <Grid item xs={10} />
+            <Grid item xs={2}>
+              <div className={classes.dailyForcast}>
+                <WrappedForecast weather={weather.daily[0]} opacity={1} />
+              </div>
+              <div className={classes.dailyForcast}>
+                <WrappedForecast weather={weather.daily[1]} opacity={0.85} />
+              </div>
+              <div className={classes.dailyForcast}>
+                <WrappedForecast weather={weather.daily[2]} opacity={0.70} />
+              </div>
+              <div className={classes.dailyForcast}>
+                <WrappedForecast weather={weather.daily[3]} opacity={0.55} />
+              </div>
+              <div className={classes.dailyForcast}>
+                <WrappedForecast weather={weather.daily[4]} opacity={0.40} />
+              </div>
+            </Grid>
           </Grid>
-          <Grid item>
-            <WrappedForecast weather={weather.hourly[1]} />
-          </Grid>
-          <Grid item>
-            <WrappedForecast weather={weather.hourly[2]} />
-          </Grid>
-          <Grid item>
-            <WrappedForecast weather={weather.hourly[3]} />
-          </Grid>
-          <Grid item>
-            <WrappedForecast weather={weather.hourly[4]} />
-          </Grid>
-        </Grid>
-        <hr />
-        <Grid container>
-          <Grid item xs={10} />
-          <Grid item xs={2}>
-            <div className={classes.dailyForcast}>
-              <WrappedForecast weather={weather.daily[0]} opacity={1} />
-            </div>
-            <div className={classes.dailyForcast}>
-              <WrappedForecast weather={weather.daily[1]} opacity={0.85} />
-            </div>
-            <div className={classes.dailyForcast}>
-              <WrappedForecast weather={weather.daily[2]} opacity={0.70} />
-            </div>
-            <div className={classes.dailyForcast}>
-              <WrappedForecast weather={weather.daily[3]} opacity={0.55} />
-            </div>
-            <div className={classes.dailyForcast}>
-              <WrappedForecast weather={weather.daily[4]} opacity={0.40} />
-            </div>
-          </Grid>
-        </Grid>
+        </div>
       </React.Fragment>
     );
   }
