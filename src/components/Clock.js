@@ -46,7 +46,7 @@ export class Clock extends Component {
   updateData = () => {
     setInterval(() => {
       this.retrieveData();
-      console.log(`retrieveing new data at ${new Date()}`);
+      console.log(`retrieving new data at ${new Date()}`);
     }, 1000 * 60 * 60 * 2); //retrieve new info every 2 hours
   }
 
