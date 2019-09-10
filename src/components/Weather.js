@@ -16,10 +16,12 @@ const styles = {
     marginTop: 20,
   },
   forecastText: {
-    maxWidth: 75
+    maxWidth: 75,
+    fontSize: 10
   },
   wideForecastText: {
-    maxWidth: 100
+    maxWidth: 100,
+    fontSize: 10
   },
   dailyForcast: {
     marginTop: 16
