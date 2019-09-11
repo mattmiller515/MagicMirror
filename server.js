@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const open = require('open');
 
 const app = express();
 
@@ -13,5 +12,3 @@ app.get('/', function (req, res) {
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-open(`http://localhost:${port}`, { app: ['chromium-browser', '--kiosk'] });
