@@ -140,7 +140,7 @@ export default (state = defaultState, action) => {
 //helper functions
 const clearList = ['sunny', 'clear', 'mostly clear', 'mostly sunny'];
 const partlyCloudyList = ['partly cloudy', 'partly sunny', 'mostly cloudy', 'intermittent clouds'];
-const hazeList = ['hazy sunshine', ' hazy moonlight'];
+const hazeList = ['hazy sunshine', 'hazy moonlight'];
 const cloudList = ['cloudy'];
 const cloudyList = ['overcast'];
 const fogList = ['fog'];
