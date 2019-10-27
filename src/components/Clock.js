@@ -74,7 +74,7 @@ export class Clock extends Component {
           </Grid>
         </Grid>
         <Typography variant='h6' align='left' className={classes.date}>
-          <LiveClock format='dddd, MMMM Mo' ticking />
+          <LiveClock format='dddd, MMMM Do' ticking />
         </Typography>
       </React.Fragment>
     );
